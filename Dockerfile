@@ -1,12 +1,16 @@
-FROM rockylinux
+FROM rockylinux/rockylinux
 MAINTAINER jakob.malezic@medius.si
 
 ARG YQ_RELEASE="4.25.2"
 RUN yum update -y \
-  && yum install -y jq \
-  && yum install -y git \
-  && yum install -y wget \
-  && yum install -y unzip \
+  && yum install -y \
+    findutils \
+    jq \
+    git \
+    wget \
+    unzip \
+    epel-release \
+  && yum install -y jsonnet \
   && wget -c "https://github.com/mikefarah/yq/releases/download/v${YQ_RELEASE}/yq_linux_amd64" -O "/usr/local/bin/yq" \
   && chmod +x "/usr/local/bin/yq" \
   && yum clean all \
