@@ -9,6 +9,7 @@ RUN yum update -y \
     git \
     wget \
     unzip \
+    xz \
     epel-release \
   && yum install -y jsonnet \
   && wget -c "https://github.com/mikefarah/yq/releases/download/v${YQ_RELEASE}/yq_linux_amd64" -O "/usr/local/bin/yq" \

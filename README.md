@@ -7,6 +7,7 @@ Installed tools:
 - wget
 - git
 - unzip
+- xz
 - jq
 - yq
 
