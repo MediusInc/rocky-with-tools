@@ -10,5 +10,6 @@ Installed tools:
 - xz
 - jq
 - yq
+- envsubst
 
 This container image is generated automatically every night at 3AM.

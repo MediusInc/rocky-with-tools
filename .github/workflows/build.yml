@@ -25,6 +25,12 @@ jobs:
         with:
           repository: mikefarah/yq
 
+      - name: Get latest release
+        id: envsubst
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: a8m/envsubst
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -41,4 +47,5 @@ jobs:
           build_args: >-
             OC_RELEASE==${{ steps.openshift.outputs.release }},
             YQ_RELEASE==${{ steps.yq.outputs.release }}
+            ENVSUBST_RELEASE==${{ steps.envsubst.outputs.release }}
           tags: mediussi/rocky-with-tools:latest
