@@ -1,8 +1,9 @@
-FROM rockylinux/rockylinux
+ARG ROCKYLINUX_VERSION=""
+FROM rockylinux/rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"}
 MAINTAINER jakob.malezic@medius.si
 
-ARG YQ_RELEASE="4.25.2"
-ARG ENVSUBST_RELEASE="1.2.0"
+ARG YQ_RELEASE="v4.25.2"
+ARG ENVSUBST_RELEASE="v1.2.0"
 
 RUN yum update -y \
   && yum install -y \
@@ -14,8 +15,8 @@ RUN yum update -y \
     xz \
     epel-release \
   && yum install -y jsonnet \
-  && wget -c "https://github.com/mikefarah/yq/releases/download/v${YQ_RELEASE}/yq_linux_amd64" -O "/usr/local/bin/yq" \
-  && wget -c "https://github.com/a8m/envsubst/releases/download/v${ENVSUBST_RELEASE}/envsubst-Linux-x86_64" -O "/usr/local/bin/envsubst" \
+  && wget -c "https://github.com/mikefarah/yq/releases/download/${YQ_RELEASE}/yq_linux_amd64" -O "/usr/local/bin/yq" \
+  && wget -c "https://github.com/a8m/envsubst/releases/download/${ENVSUBST_RELEASE}/envsubst-Linux-x86_64" -O "/usr/local/bin/envsubst" \
   && chmod +x "/usr/local/bin/yq" \
   && chmod +x "/usr/local/bin/envsubst" \
   && yum clean all \
