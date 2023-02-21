@@ -31,6 +31,12 @@ jobs:
         with:
           repository: a8m/envsubst
 
+      - name: Get latest release
+        id: crane
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: google/go-containerregistry
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -57,6 +63,7 @@ jobs:
           OC_RELEASE=${{ steps.openshift.outputs.release }}
           YQ_RELEASE=${{ steps.yq.outputs.release }}
           ENVSUBST_RELEASE=${{ steps.envsubst.outputs.release }}
+          CRANE_RELEASE=${{ steps.crane.outputs.release }}
           TAGS="${{ steps.scan.outputs.tags }}"
           for tag in $(echo "$TAGS" | grep -Po "\d\.\d" | uniq); do
             echo "Building mediussi/rocky-with-tools:$tag"
@@ -65,6 +72,7 @@ jobs:
               --build-arg "OC_RELEASE=$OC_RELEASE" \
               --build-arg "YQ_RELEASE=$YQ_RELEASE" \
               --build-arg "ENVSUBST_RELEASE=$ENVSUBST_RELEASE" \
+              --build-arg "CRANE_RELEASE=$CRANE_RELEASE" \
               --tag "mediussi/rocky-with-tools:$tag"
             
             docker push "mediussi/rocky-with-tools:$tag"
