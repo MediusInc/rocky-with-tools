@@ -46,28 +46,17 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Scan Docker Repository
-        uses: dhet/scan-docker-tags-action@v1.0.1
-        with:
-          image: rockylinux/rockylinux
-          max-age-minutes: 1440
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-        id: scan
-      - name: Print
-        run: |
-          TAGS="${{ steps.scan.outputs.tags }}"
-          TAGS="$TAGS\nlatest"
-          echo "$TAGS" | grep -Po "\d\.\d|latest" | uniq
       - name: Build and push image
         run: |
           OC_RELEASE=${{ steps.openshift.outputs.release }}
           YQ_RELEASE=${{ steps.yq.outputs.release }}
           ENVSUBST_RELEASE=${{ steps.envsubst.outputs.release }}
           CRANE_RELEASE=${{ steps.crane.outputs.release }}
-          TAGS="${{ steps.scan.outputs.tags }}"
-          TAGS="$TAGS\nlatest"
-          for tag in $(echo "$TAGS" | grep -Po "\d\.\d|latest" | uniq); do
+          TAGS=(
+            "latest"
+            "9.1"
+          )
+          for tag in "${TAGS[@]}"; do
             echo "Building mediussi/rocky-with-tools:$tag"
             docker build . \
               --build-arg "ROCKYLINUX_VERSION=$tag" \
