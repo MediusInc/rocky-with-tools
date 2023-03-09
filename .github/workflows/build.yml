@@ -56,6 +56,8 @@ jobs:
               
               if [ "${TAGS[$tag]}" == "latest" ]; then
                 use_latest=true
+              else
+                unset use_latest
               fi
           
               docker build . \
