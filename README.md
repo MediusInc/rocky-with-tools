@@ -10,7 +10,7 @@ Installed tools:
 - xz
 - jq
 - yq
-- envsubst
+- gettext
 - jsonnet
 - kubectl
 - oc

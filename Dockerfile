@@ -3,7 +3,6 @@ FROM rockylinux/rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"}
 LABEL maintainer="jakob.malezic@medius.si"
 
 ARG YQ_RELEASE="v4.25.2"
-ARG ENVSUBST_RELEASE="v1.2.0"
 ARG CRANE_RELEASE="v0.13.0"
 
 RUN dnf upgrade -y \
@@ -14,15 +13,14 @@ RUN dnf upgrade -y \
     wget \
     unzip \
     xz \
+    gettext \
     epel-release \
   && dnf install -y jsonnet \
   && wget -c "https://github.com/mikefarah/yq/releases/download/${YQ_RELEASE}/yq_linux_amd64" -O "/usr/local/bin/yq" \
-  && wget -c "https://github.com/a8m/envsubst/releases/download/${ENVSUBST_RELEASE}/envsubst-Linux-x86_64" -O "/usr/local/bin/envsubst" \
   && wget -c "https://github.com/google/go-containerregistry/releases/download/${CRANE_RELEASE}/go-containerregistry_Linux_x86_64.tar.gz" -O "go-containerregistry.tar.gz" \
   && tar -zxvf go-containerregistry.tar.gz -C /usr/local/bin/ crane \
   && rm go-containerregistry.tar.gz \
   && chmod +x "/usr/local/bin/yq" \
-  && chmod +x "/usr/local/bin/envsubst" \
   && chmod +x "/usr/local/bin/crane" \
   && dnf clean all \
   && dnf autoremove -y \
