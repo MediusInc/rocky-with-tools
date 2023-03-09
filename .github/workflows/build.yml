@@ -63,7 +63,5 @@ jobs:
               --build-arg "OC_RELEASE=$OC_RELEASE" \
               --build-arg "YQ_RELEASE=$YQ_RELEASE" \
               --build-arg "CRANE_RELEASE=$CRANE_RELEASE" \
-              --tag "mediussi/rocky-with-tools:${TAGS[$tag]}"
-
-              docker push "mediussi/rocky-with-tools:${TAGS[$tag]}"
+              --tag "mediussi/rocky-with-tools:${TAGS[$tag]}" --push 
           done
