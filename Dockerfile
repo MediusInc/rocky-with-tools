@@ -1,5 +1,5 @@
 ARG ROCKYLINUX_VERSION=""
-FROM rockylinux/rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"}
+FROM rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"}
 LABEL maintainer="jakob.malezic@medius.si"
 
 ARG YQ_RELEASE="v4.25.2"
