@@ -15,6 +15,7 @@ RUN dnf upgrade -y \
     xz \
     gettext \
     epel-release \
+    which \
   && dnf install -y jsonnet \
   && wget -c "https://github.com/mikefarah/yq/releases/download/${YQ_RELEASE}/yq_linux_amd64" -O "/usr/local/bin/yq" \
   && wget -c "https://github.com/google/go-containerregistry/releases/download/${CRANE_RELEASE}/go-containerregistry_Linux_x86_64.tar.gz" -O "go-containerregistry.tar.gz" \
