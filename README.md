@@ -16,6 +16,7 @@ Installed tools:
 - oc
 - crane
 - which
+- git-lfs
 
 This container image is generated automatically every night at 3AM and can be pulled from [Dockerhub]( 
 https://hub.docker.com/r/mediussi/rocky-with-tools/tags):
