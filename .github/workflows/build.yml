@@ -2,9 +2,9 @@ name: Build Container Image
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
   schedule:
     - cron: '0 3 * * *' # At 02:00 AM
 
@@ -39,29 +39,39 @@ jobs:
         with:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-
+      - name: Scan Docker Repository
+        uses: dhet/scan-docker-tags-action@v1.0.1
+        with:
+          image: library/rockylinux
+          max-age-minutes: 10000
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          tag-regex: ^\d+\.\d+$
+        id: scan
+      - name: Print
+        run: |
+          TAGS="${{ steps.scan.outputs.tags }}"
+          echo "Unfiltered: $TAGS"
+          echo -e "${TAGS//,/\\n}" | uniq
       - name: Build and push image
         run: |
           OC_RELEASE=${{ steps.openshift.outputs.release }}
           YQ_RELEASE=${{ steps.yq.outputs.release }}
           CRANE_RELEASE=${{ steps.crane.outputs.release }}
-          declare -A TAGS=(
-            ["9"]="9,latest"
-            ["8"]="8"
-          )
+          TAGS="${{ steps.scan.outputs.tags }}"
           
           # Iterate over tags and build/push
-          for tag in "${!TAGS[@]}"; do
+          for tag in $(echo -e "${TAGS//,/\\n}" | uniq); do
               echo "Building mediussi/rocky-with-tools:$tag"
-              
-              mapfile -d "," -t tags < <(echo -n "${TAGS[$tag]}")
           
               docker build . \
               --build-arg "ROCKYLINUX_VERSION=$tag" \
               --build-arg "OC_RELEASE=$OC_RELEASE" \
               --build-arg "YQ_RELEASE=$YQ_RELEASE" \
               --build-arg "CRANE_RELEASE=$CRANE_RELEASE" \
-              $(printf -- "--tag mediussi/rocky-with-tools:%s " "${tags[@]}")
-
+              --tag "mediussi/rocky-with-tools:$tag"
           done
-          docker push --all-tags mediussi/rocky-with-tools
+          
+          if [ -n "$TAGS" ]; then
+            docker push --all-tags mediussi/rocky-with-tools
+          fi
