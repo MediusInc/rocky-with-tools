@@ -36,16 +36,3 @@ RUN cd /tmp \
   && tar xzf oc.tar.gz \
   && mv kubectl oc /usr/local/bin/ \
   && rm *.tar.gz README.md
-
-ONBUILD ARG DNF_REPOS_PATH="dnf.repo"
-ONBUILD ARG DNF_REPOS_FILE_PATH=$DNF_REPOS_PATH
-# This is a conditional copy, at least one file must exist, that's why we use README.md
-ONBUILD COPY "README.md" "$DNF_REPOS_FILE_PATH"* /
-# Check if DNF_REPOS exists and set them as dnf repositories
-ONBUILD RUN if [ -f "$DNF_REPOS_FILE_PATH" ]; then \
-     dnf clean all \
-     && rm -rf /var/cache/dnf \
-     && rm /etc/yum.repos.d/*.repo \
-     && cp "$DNF_REPOS_FILE_PATH" /etc/yum.repos.d/dnf.repo \
-     && rm "README.md" \
- ; fi
