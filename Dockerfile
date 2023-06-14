@@ -38,8 +38,7 @@ RUN cd /tmp \
   && rm *.tar.gz README.md
 
 ONBUILD ARG DNF_REPOS_PATH="dnf.repo"
-ONBUILD ARG DNF_REPOS_FILE_PATH
-ENV DNF_REPOS_FILE_PATH=${DNF_REPOS_FILE_PATH:-$DNF_REPOS_PATH}
+ONBUILD ARG DNF_REPOS_FILE_PATH=$DNF_REPOS_PATH
 # This is a conditional copy, at least one file must exist, that's why we use README.md
 ONBUILD COPY "README.md" "$DNF_REPOS_FILE_PATH"* /
 # Check if DNF_REPOS exists and set them as dnf repositories

@@ -39,15 +39,28 @@ jobs:
         with:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Set max age
+        id: set_max_age
+        run: |
+          if [ "$GITHUB_EVENT_NAME" == "schedule" ]; then
+            echo "Max age is 10000 minutes"
+            echo "max_age_minutes=10000" >> $GITHUB_OUTPUT
+          else
+            echo "Max age is 250000 minutes"
+            echo "max_age_minutes=250000" >> $GITHUB_OUTPUT
+          fi
+
       - name: Scan Docker Repository
         uses: dhet/scan-docker-tags-action@v1.0.1
         with:
           image: library/rockylinux
-          max-age-minutes: 10000
+          max-age-minutes: ${{ steps.set_max_age.outputs.max_age_minutes }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-          tag-regex: ^\d+\.\d+$
+          tag-regex: '^\d+\.\d+$'
         id: scan
+
       - name: Print
         run: |
           TAGS="${{ steps.scan.outputs.tags }}"
