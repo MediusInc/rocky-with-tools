@@ -1,4 +1,13 @@
 ARG ROCKYLINUX_VERSION=""
+FROM rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"} AS download-oc
+# oc & kubectl
+ARG OC_RELEASE="4.10.0-0.okd-2022-06-10-131327"
+ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/openshift-client-linux-${OC_RELEASE}.tar.gz
+ADD ${OC_URL} /tmp/oc.tar.gz
+RUN cd /tmp \
+  && tar xzf oc.tar.gz
+
+ARG ROCKYLINUX_VERSION=""
 FROM rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"}
 LABEL maintainer="jakob.malezic@medius.si"
 
@@ -28,11 +37,4 @@ RUN dnf upgrade -y \
   && dnf autoremove -y \
   && rm -rf /var/cache/dnf
 
-# oc & kubectl
-ARG OC_RELEASE="4.10.0-0.okd-2022-06-10-131327"
-ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/openshift-client-linux-${OC_RELEASE}.tar.gz
-ADD ${OC_URL} /tmp/oc.tar.gz
-RUN cd /tmp \
-  && tar xzf oc.tar.gz \
-  && mv kubectl oc /usr/local/bin/ \
-  && rm *.tar.gz README.md
+COPY --from=download-oc /tmp/kubectl /tmp/oc /usr/local/bin/
