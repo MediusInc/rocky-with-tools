@@ -69,8 +69,11 @@ jobs:
       - name: Build and push image
         run: |
           OC_RELEASE=${{ steps.openshift.outputs.release }}
+          echo "OC_RELEASE=$OC_RELEASE"
           YQ_RELEASE=${{ steps.yq.outputs.release }}
+          echo "YQ_RELEASE=$YQ_RELEASE"
           CRANE_RELEASE=${{ steps.crane.outputs.release }}
+          echo "CRANE_RELEASE=$CRANE_RELEASE"
           TAGS="${{ steps.scan.outputs.tags }}"
           
           # Iterate over tags and build/push
