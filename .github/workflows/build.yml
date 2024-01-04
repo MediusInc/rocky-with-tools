@@ -31,6 +31,12 @@ jobs:
         with:
           repository: google/go-containerregistry
 
+      - name: Get latest release
+        id: helm
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: helm/helm
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -48,6 +54,8 @@ jobs:
           echo "YQ_RELEASE=$YQ_RELEASE"
           CRANE_RELEASE=${{ steps.crane.outputs.release }}
           echo "CRANE_RELEASE=$CRANE_RELEASE"
+          HELM_RELEASE=${{ steps.helm.outputs.release }}
+          echo "HELM_RELEASE=$HELM_RELEASE"
           TAGS="8.8,8.9,9.2,9.3"
           
           # Iterate over tags and build/push
@@ -59,6 +67,7 @@ jobs:
               --build-arg "OC_RELEASE=$OC_RELEASE" \
               --build-arg "YQ_RELEASE=$YQ_RELEASE" \
               --build-arg "CRANE_RELEASE=$CRANE_RELEASE" \
+              --build-arg "HELM_RELEASE=$HELM_RELEASE" \
               --tag "mediussi/rocky-with-tools:$tag"
           done
           

@@ -4,8 +4,15 @@ FROM rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"} AS download-oc
 ARG OC_RELEASE="4.10.0-0.okd-2022-06-10-131327"
 ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/openshift-client-linux-${OC_RELEASE}.tar.gz
 ADD ${OC_URL} /tmp/oc.tar.gz
-RUN cd /tmp \
-  && tar xzf oc.tar.gz
+RUN tar xzf /tmp/oc.tar.gz -C /tmp
+
+ARG ROCKYLINUX_VERSION=""
+FROM rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"} AS download-helm
+# oc & kubectl
+ARG HELM_RELEASE="v3.13.3"
+ENV HELM_URL=https://get.helm.sh/helm-${HELM_RELEASE}-linux-amd64.tar.gz
+ADD ${HELM_URL} /tmp/helm.tar.gz
+RUN tar xzf /tmp/helm.tar.gz -C /tmp --strip-components=1
 
 ARG ROCKYLINUX_VERSION=""
 FROM rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"}
@@ -40,3 +47,4 @@ RUN dnf upgrade -y \
   && rm -rf /var/cache/dnf
 
 COPY --from=download-oc /tmp/kubectl /tmp/oc /usr/local/bin/
+COPY --from=download-helm /tmp/helm /usr/local/bin/
