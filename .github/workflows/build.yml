@@ -68,6 +68,8 @@ jobs:
           for tag in $(echo -e "${TAGS//,/\\n}" | uniq); do
               echo "Building mediussi/rocky-with-tools:$tag"
           
+              # set --provenance=false to force pushing a docker manifest (not oci)
+              # https://github.com/docker/buildx/issues/1509#issuecomment-1378454396
               docker buildx build . \
               --platform linux/amd64,linux/arm64 \
               --build-arg "ROCKYLINUX_VERSION=$tag" \
@@ -76,5 +78,6 @@ jobs:
               --build-arg "CRANE_RELEASE=$CRANE_RELEASE" \
               --build-arg "HELM_RELEASE=$HELM_RELEASE" \
               --tag "mediussi/rocky-with-tools:$tag" \
+              --provenance=false \
               --push
           done
