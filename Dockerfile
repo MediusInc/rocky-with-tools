@@ -96,6 +96,7 @@ RUN dnf upgrade -y \
     epel-release \
     which \
     git-lfs \
+    xmlstarlet \
   && dnf install -y jsonnet \
   && dnf clean all \
   && dnf autoremove -y \
