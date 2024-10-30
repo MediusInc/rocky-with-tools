@@ -11,7 +11,7 @@ ARG CRANE_RELEASE="v0.13.0"
 #  / ___ \|  _ <| |  | |
 # /_/   \_\_| \_\_|  |_|
 
-FROM --platform=arm64 rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"} AS base-arm64
+FROM --platform=arm64 rockylinux/rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"} AS base-arm64
 ARG OC_RELEASE
 ARG HELM_RELEASE
 ARG YQ_RELEASE
@@ -28,7 +28,7 @@ ENV CRANE_URL=https://github.com/google/go-containerregistry/releases/download/$
 #  / ___ \| |  | | |_| |
 # /_/   \_\_|  |_|____/
 
-FROM --platform=amd64 rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"} AS base-amd64
+FROM --platform=amd64 rockylinux/rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"} AS base-amd64
 ARG OC_RELEASE
 ARG HELM_RELEASE
 ARG YQ_RELEASE
