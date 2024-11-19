@@ -67,7 +67,7 @@ jobs:
           echo "CRANE_RELEASE=$CRANE_RELEASE"
           HELM_RELEASE=${{ steps.helm.outputs.release }}
           echo "HELM_RELEASE=$HELM_RELEASE"
-          TAGS="8.9,8.10,9.3,9.4"
+          TAGS="8.9,8.10,9.3,9.4,9.5"
           
           # Iterate over tags and build/push
           for tag in $(echo -e "${TAGS//,/\\n}" | uniq); do
