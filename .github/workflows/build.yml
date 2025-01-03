@@ -42,6 +42,18 @@ jobs:
         with:
           repository: helm/helm
 
+      - name: Get latest release
+        id: helm-secrets
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: jkroepke/helm-secrets
+
+      - name: Get latest release
+        id: sops
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: getsops/sops
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -67,6 +79,10 @@ jobs:
           echo "CRANE_RELEASE=$CRANE_RELEASE"
           HELM_RELEASE=${{ steps.helm.outputs.release }}
           echo "HELM_RELEASE=$HELM_RELEASE"
+          HELM_SECRETS_RELEASE=${{ steps.helm-secrets.outputs.release }}
+          echo "HELM_SECRETS_RELEASE=$HELM_SECRETS_RELEASE"
+          SOPS_RELEASE=${{ steps.sops.outputs.release }}
+          echo "SOPS_RELEASE=$SOPS_RELEASE"
           TAGS="8.9,8.10,9.3,9.4,9.5"
           
           # Iterate over tags and build/push
@@ -82,6 +98,8 @@ jobs:
               --build-arg "YQ_RELEASE=$YQ_RELEASE" \
               --build-arg "CRANE_RELEASE=$CRANE_RELEASE" \
               --build-arg "HELM_RELEASE=$HELM_RELEASE" \
+              --build-arg "HELM_SECRETS_RELEASE=$HELM_SECRET_RELEASE" \
+              --build-arg "SOPS_RELEASE=$SOPS_RELEASE" \
               --tag "mediussi/rocky-with-tools:$tag" \
               --provenance=false \
               --push

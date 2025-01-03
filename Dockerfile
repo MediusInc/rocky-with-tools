@@ -2,6 +2,8 @@ ARG ROCKYLINUX_VERSION=""
 
 ARG OC_RELEASE="4.15.0-0.okd-2024-02-10-035534"
 ARG HELM_RELEASE="v3.13.3"
+ARG HELM_SECRETS_RELEASE="v4.6.2"
+ARG SOPS_RELEASE="v3.9.3"
 ARG YQ_RELEASE="v4.25.2"
 ARG CRANE_RELEASE="v0.13.0"
 
@@ -14,6 +16,7 @@ ARG CRANE_RELEASE="v0.13.0"
 FROM --platform=arm64 rockylinux/rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"} AS base-arm64
 ARG OC_RELEASE
 ARG HELM_RELEASE
+ARG SOPS_RELEASE
 ARG YQ_RELEASE
 ARG CRANE_RELEASE
 
@@ -21,6 +24,7 @@ ENV HELM_URL=https://get.helm.sh/helm-${HELM_RELEASE}-linux-arm64.tar.gz
 ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/openshift-client-linux-arm64-${OC_RELEASE}.tar.gz
 ENV YQ_URL=https://github.com/mikefarah/yq/releases/download/${YQ_RELEASE}/yq_linux_arm64.tar.gz
 ENV CRANE_URL=https://github.com/google/go-containerregistry/releases/download/${CRANE_RELEASE}/go-containerregistry_Linux_arm64.tar.gz
+ENV SOPS_URL=https://github.com/getsops/sops/releases/download/${SOPS_RELEASE}/sops-${SOPS_RELEASE}.linux.arm64
 
 #     _    __  __ ____
 #    / \  |  \/  |  _ \
@@ -31,6 +35,7 @@ ENV CRANE_URL=https://github.com/google/go-containerregistry/releases/download/$
 FROM --platform=amd64 rockylinux/rockylinux${ROCKYLINUX_VERSION:+":$ROCKYLINUX_VERSION"} AS base-amd64
 ARG OC_RELEASE
 ARG HELM_RELEASE
+ARG SOPS_RELEASE
 ARG YQ_RELEASE
 ARG CRANE_RELEASE
 
@@ -38,6 +43,7 @@ ENV HELM_URL=https://get.helm.sh/helm-${HELM_RELEASE}-linux-amd64.tar.gz
 ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/openshift-client-linux-${OC_RELEASE}.tar.gz
 ENV YQ_URL=https://github.com/mikefarah/yq/releases/download/${YQ_RELEASE}/yq_linux_amd64.tar.gz
 ENV CRANE_URL=https://github.com/google/go-containerregistry/releases/download/${CRANE_RELEASE}/go-containerregistry_Linux_x86_64.tar.gz
+ENV SOPS_URL=https://github.com/getsops/sops/releases/download/${SOPS_RELEASE}/sops-${SOPS_RELEASE}.linux.amd64
 
 #  ____   _____        ___   _ _     ___    _    ____
 # |  _ \ / _ \ \      / / \ | | |   / _ \  / \  |  _ \
@@ -66,6 +72,11 @@ FROM base-${TARGETARCH} AS download-crane
 ADD ${CRANE_URL} /tmp/crane.tar.gz
 RUN tar xzf /tmp/crane.tar.gz -C /tmp
 
+FROM base-${TARGETARCH} AS download-sops
+# sops
+ADD ${SOPS_URL} /tmp/sops
+RUN chmod +x /tmp/sops
+
 #  _____ ___ _   _    _    _
 # |  ___|_ _| \ | |  / \  | |
 # | |_   | ||  \| | / _ \ | |
@@ -82,6 +93,7 @@ COPY --from=download-oc /tmp/kubectl /tmp/oc /usr/local/bin/
 COPY --from=download-helm /tmp/helm /usr/local/bin/
 COPY --from=download-yq /tmp/yq_linux_${TARGETARCH} /usr/local/bin/yq
 COPY --from=download-crane /tmp/crane /usr/local/bin/
+COPY --from=download-sops /tmp/sops /usr/local/bin/
 
 # Remarks: jsonnet must be in its own install command as epel-release HAS to be installed beforehand
 RUN dnf upgrade -y \
@@ -100,4 +112,5 @@ RUN dnf upgrade -y \
   && dnf install -y jsonnet \
   && dnf clean all \
   && dnf autoremove -y \
-  && rm -rf /var/cache/dnf
+  && rm -rf /var/cache/dnf \
+  && helm plugin install https://github.com/jkroepke/helm-secrets --version "$HELM_SECRETS_RELEASE"
