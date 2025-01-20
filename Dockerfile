@@ -109,6 +109,7 @@ RUN dnf upgrade -y \
     which \
     git-lfs \
     xmlstarlet \
+    podman \
   && dnf install -y jsonnet \
   && dnf clean all \
   && dnf autoremove -y \
