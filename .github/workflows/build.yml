@@ -54,6 +54,12 @@ jobs:
         with:
           repository: getsops/sops
 
+      - name: Get latest release
+        id: just
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: casey/just
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -83,6 +89,8 @@ jobs:
           echo "HELM_SECRETS_RELEASE=$HELM_SECRETS_RELEASE"
           SOPS_RELEASE=${{ steps.sops.outputs.release }}
           echo "SOPS_RELEASE=$SOPS_RELEASE"
+          JUST_RELEASE=${{ steps.just.outputs.release }}
+          echo "JUST_RELEASE=$JUST_RELEASE"
           TAGS="8.9,8.10,9.3,9.4,9.5"
           
           # Iterate over tags and build/push
@@ -100,6 +108,7 @@ jobs:
               --build-arg "HELM_RELEASE=$HELM_RELEASE" \
               --build-arg "HELM_SECRETS_RELEASE=$HELM_SECRET_RELEASE" \
               --build-arg "SOPS_RELEASE=$SOPS_RELEASE" \
+              --build-arg "JUST_RELEASE=$JUST_RELEASE" \
               --tag "mediussi/rocky-with-tools:$tag" \
               --provenance=false \
               --push
