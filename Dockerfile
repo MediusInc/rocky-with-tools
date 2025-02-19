@@ -107,6 +107,8 @@ COPY --from=download-sops /tmp/sops /usr/local/bin/
 COPY --from=download-just /tmp/just /usr/local/bin/
 
 # Remarks: jsonnet must be in its own install command as epel-release HAS to be installed beforehand
+# `--enablerepo=crb` - CodeReady Builder (CRB) repository is needed for httpie
+ARG ROCKYLINUX_VERSION
 RUN dnf upgrade -y \
   && dnf install -y \
     findutils \
@@ -122,6 +124,7 @@ RUN dnf upgrade -y \
     xmlstarlet \
     podman \
     rsync \
+  && if [[ $ROCKYLINUX_VERSION == 9.* ]]; then dnf install --enablerepo=crb -y httpie; else dnf install -y httpie; fi  \
   && dnf install -y jsonnet \
   && dnf clean all \
   && dnf autoremove -y \
