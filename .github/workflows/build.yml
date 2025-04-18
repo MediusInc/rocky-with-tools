@@ -60,6 +60,12 @@ jobs:
         with:
           repository: casey/just
 
+      - name: Get latest release
+        id: telepresence
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: telepresenceio/telepresence
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -91,6 +97,8 @@ jobs:
           echo "SOPS_RELEASE=$SOPS_RELEASE"
           JUST_RELEASE=${{ steps.just.outputs.release }}
           echo "JUST_RELEASE=$JUST_RELEASE"
+          TELEPRESENCE_RELEASE=${{ steps.telepresence.outputs.release }}
+          echo "TELEPRESENCE_RELEASE=$TELEPRESENCE_RELEASE"
           TAGS="8.9,8.10,9.3,9.4,9.5"
           
           # Iterate over tags and build/push
@@ -109,6 +117,7 @@ jobs:
               --build-arg "HELM_SECRETS_RELEASE=$HELM_SECRET_RELEASE" \
               --build-arg "SOPS_RELEASE=$SOPS_RELEASE" \
               --build-arg "JUST_RELEASE=$JUST_RELEASE" \
+              --build-arg "TELEPRESENCE_RELEASE=$TELEPRESENCE_RELEASE" \
               --tag "mediussi/rocky-with-tools:$tag" \
               --provenance=false \
               --push
