@@ -99,7 +99,7 @@ jobs:
           echo "JUST_RELEASE=$JUST_RELEASE"
           TELEPRESENCE_RELEASE=${{ steps.telepresence.outputs.release }}
           echo "TELEPRESENCE_RELEASE=$TELEPRESENCE_RELEASE"
-          TAGS="8.9,8.10,9.3,9.4,9.5"
+          TAGS="8.9,8.10,9.3,9.4,9.5,10.0"
           
           # Iterate over tags and build/push
           for tag in $(echo -e "${TAGS//,/\\n}" | uniq); do
