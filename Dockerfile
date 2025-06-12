@@ -135,7 +135,7 @@ RUN dnf upgrade -y \
     xmlstarlet \
     podman \
     rsync \
-  && if [[ $ROCKYLINUX_VERSION == 9.* ]]; then dnf install --enablerepo=crb -y httpie; elif [[ $ROCKYLINUX_VERSION == 10.* ]]; then dnf install -y pip && pip install httpie; else dnf install -y httpie; fi;  \
+  && if [[ $ROCKYLINUX_VERSION == 9.* ]]; then dnf install --enablerepo=crb -y httpie; elif [[ $ROCKYLINUX_VERSION == 10.* ]]; then dnf install -y pip && pip install httpie; else dnf install -y httpie; fi  \
   && dnf install -y jsonnet \
   && dnf clean all \
   && dnf autoremove -y \
