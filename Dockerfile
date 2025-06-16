@@ -141,3 +141,7 @@ RUN dnf upgrade -y \
   && dnf autoremove -y \
   && rm -rf /var/cache/dnf \
   && helm plugin install https://github.com/jkroepke/helm-secrets --version "$HELM_SECRETS_RELEASE"
+
+# disable httpie version check
+RUN mkdir -p ~/.config/httpie \
+    && jq -n '{ default_options: ["--disable_update_warnings=true"] }' > ~/.config/httpie/config.json
