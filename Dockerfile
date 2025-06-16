@@ -144,4 +144,4 @@ RUN dnf upgrade -y \
 
 # disable httpie version check
 RUN mkdir -p ~/.config/httpie \
-    && jq -n '{ default_options: ["--disable_update_warnings=true"] }' > ~/.config/httpie/config.json
+    && jq -n '{ disable_update_warnings: true }' > ~/.config/httpie/config.json
