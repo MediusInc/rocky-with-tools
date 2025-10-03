@@ -68,6 +68,12 @@ jobs:
         with:
           repository: telepresenceio/telepresence
 
+      - name: Get latest release
+        id: argocd
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: argoproj/argo-cd
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -101,6 +107,8 @@ jobs:
           echo "JUST_RELEASE=$JUST_RELEASE"
           TELEPRESENCE_RELEASE=${{ steps.telepresence.outputs.release }}
           echo "TELEPRESENCE_RELEASE=$TELEPRESENCE_RELEASE"
+          ARGO_CD_RELEASE=${{ steps.argocd.outputs.release }}
+          echo "ARGO_CD_RELEASE=$ARGO_CD_RELEASE"
           TAGS="8.9,8.10,9.3,9.4,9.5,9.6,10.0"
           
           # Iterate over tags and build/push
@@ -120,6 +128,7 @@ jobs:
               --build-arg "SOPS_RELEASE=$SOPS_RELEASE" \
               --build-arg "JUST_RELEASE=$JUST_RELEASE" \
               --build-arg "TELEPRESENCE_RELEASE=$TELEPRESENCE_RELEASE" \
+              --build-arg "ARGO_CD_RELEASE=$ARGO_CD_RELEASE" \
               --tag "mediussi/rocky-with-tools:$tag" \
               --provenance=false \
               --push

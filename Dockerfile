@@ -8,6 +8,7 @@ ARG YQ_RELEASE="v4.25.2"
 ARG CRANE_RELEASE="v0.13.0"
 ARG JUST_RELEASE="1.39.0"
 ARG TELEPRESENCE_RELEASE="v2.22.3"
+ARG ARGO_CD_RELEASE="v3.1.8"
 
 #     _    ____  __  __
 #    / \  |  _ \|  \/  |
@@ -23,6 +24,7 @@ ARG YQ_RELEASE
 ARG CRANE_RELEASE
 ARG JUST_RELEASE
 ARG TELEPRESENCE_RELEASE
+ARG ARGO_CD_RELEASE
 
 ENV HELM_URL=https://get.helm.sh/helm-${HELM_RELEASE}-linux-arm64.tar.gz
 ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/openshift-client-linux-arm64-${OC_RELEASE}.tar.gz
@@ -31,6 +33,7 @@ ENV CRANE_URL=https://github.com/google/go-containerregistry/releases/download/$
 ENV SOPS_URL=https://github.com/getsops/sops/releases/download/${SOPS_RELEASE}/sops-${SOPS_RELEASE}.linux.arm64
 ENV JUST_URL=https://github.com/casey/just/releases/download/${JUST_RELEASE}/just-${JUST_RELEASE}-aarch64-apple-darwin.tar.gz
 ENV TELEPRESENCE_URL=https://github.com/telepresenceio/telepresence/releases/download/${TELEPRESENCE_RELEASE}/telepresence-linux-arm64
+ENV ARGO_CD_URL=https://github.com/argoproj/argo-cd/releases/download/${ARGO_CD_RELEASE}/argocd-linux-arm64
 
 #     _    __  __ ____
 #    / \  |  \/  |  _ \
@@ -46,6 +49,7 @@ ARG YQ_RELEASE
 ARG CRANE_RELEASE
 ARG JUST_RELEASE
 ARG TELEPRESENCE_RELEASE
+ARG ARGO_CD_RELEASE
 
 ENV HELM_URL=https://get.helm.sh/helm-${HELM_RELEASE}-linux-amd64.tar.gz
 ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/openshift-client-linux-${OC_RELEASE}.tar.gz
@@ -54,6 +58,7 @@ ENV CRANE_URL=https://github.com/google/go-containerregistry/releases/download/$
 ENV SOPS_URL=https://github.com/getsops/sops/releases/download/${SOPS_RELEASE}/sops-${SOPS_RELEASE}.linux.amd64
 ENV JUST_URL=https://github.com/casey/just/releases/download/${JUST_RELEASE}/just-${JUST_RELEASE}-x86_64-unknown-linux-musl.tar.gz
 ENV TELEPRESENCE_URL=https://github.com/telepresenceio/telepresence/releases/download/${TELEPRESENCE_RELEASE}/telepresence-linux-amd64
+ENV ARGO_CD_URL=https://github.com/argoproj/argo-cd/releases/download/${ARGO_CD_RELEASE}/argocd-linux-amd64
 
 #  ____   _____        ___   _ _     ___    _    ____
 # |  _ \ / _ \ \      / / \ | | |   / _ \  / \  |  _ \
@@ -97,6 +102,11 @@ FROM base-${TARGETARCH} AS download-telepresence
 ADD ${TELEPRESENCE_URL} /tmp/telepresence
 RUN chmod +x /tmp/telepresence
 
+FROM base-${TARGETARCH} AS download-argocd
+# argocd
+ADD ${ARGO_CD_URL} /tmp/argocd
+RUN chmod +x /tmp/argocd
+
 #  _____ ___ _   _    _    _
 # |  ___|_ _| \ | |  / \  | |
 # | |_   | ||  \| | / _ \ | |
@@ -116,6 +126,7 @@ COPY --from=download-crane /tmp/crane /usr/local/bin/
 COPY --from=download-sops /tmp/sops /usr/local/bin/
 COPY --from=download-just /tmp/just /usr/local/bin/
 COPY --from=download-telepresence /tmp/telepresence /usr/local/bin/telepresence
+COPY --from=download-argocd /tmp/argocd /usr/local/bin/argocd
 
 # Remarks: jsonnet must be in its own install command as epel-release HAS to be installed beforehand
 # `--enablerepo=crb` - CodeReady Builder (CRB) repository is needed for httpie
