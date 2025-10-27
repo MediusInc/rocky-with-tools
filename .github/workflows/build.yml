@@ -97,7 +97,9 @@ jobs:
           echo "YQ_RELEASE=$YQ_RELEASE"
           CRANE_RELEASE=${{ steps.crane.outputs.release }}
           echo "CRANE_RELEASE=$CRANE_RELEASE"
-          HELM_RELEASE=${{ steps.helm.outputs.release }}
+          # TODO: fix this
+          # HELM_RELEASE=${{ steps.helm.outputs.release }}
+          HELM_RELEASE=v3.19.0
           echo "HELM_RELEASE=$HELM_RELEASE"
           HELM_SECRETS_RELEASE=${{ steps.helm-secrets.outputs.release }}
           echo "HELM_SECRETS_RELEASE=$HELM_SECRETS_RELEASE"
@@ -109,7 +111,7 @@ jobs:
           echo "TELEPRESENCE_RELEASE=$TELEPRESENCE_RELEASE"
           ARGO_CD_RELEASE=${{ steps.argocd.outputs.release }}
           echo "ARGO_CD_RELEASE=$ARGO_CD_RELEASE"
-          TAGS="8.10,9.6,10.0"
+          TAGS="9.6,10.0"
           
           # Iterate over tags and build/push
           for tag in $(echo -e "${TAGS//,/\\n}" | uniq); do
