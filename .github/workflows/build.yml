@@ -111,7 +111,7 @@ jobs:
           echo "TELEPRESENCE_RELEASE=$TELEPRESENCE_RELEASE"
           ARGO_CD_RELEASE=${{ steps.argocd.outputs.release }}
           echo "ARGO_CD_RELEASE=$ARGO_CD_RELEASE"
-          TAGS="9.6,10.0"
+          TAGS="9.6,10.0,10.1"
           
           # Iterate over tags and build/push
           for tag in $(echo -e "${TAGS//,/\\n}" | uniq); do
