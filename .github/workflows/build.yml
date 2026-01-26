@@ -116,7 +116,9 @@ jobs:
           echo "SOPS_RELEASE=$SOPS_RELEASE"
           JUST_RELEASE=${{ steps.just.outputs.release }}
           echo "JUST_RELEASE=$JUST_RELEASE"
-          TELEPRESENCE_RELEASE=${{ steps.telepresence.outputs.release }}
+          # TODO: telepresence is broken on CI/CD since v2.26.0
+          #TELEPRESENCE_RELEASE=${{ steps.telepresence.outputs.release }}
+          TELEPRESENCE_RELEASE=v2.25.1
           echo "TELEPRESENCE_RELEASE=$TELEPRESENCE_RELEASE"
           ARGO_CD_RELEASE=${{ steps.argocd.outputs.release }}
           echo "ARGO_CD_RELEASE=$ARGO_CD_RELEASE"
