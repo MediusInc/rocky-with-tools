@@ -25,54 +25,63 @@ jobs:
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: openshift/okd
+          excludes: prerelease,draft
 
       - name: Get latest release
         id: yq
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: mikefarah/yq
+          excludes: prerelease,draft
 
       - name: Get latest release
         id: crane
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: google/go-containerregistry
+          excludes: prerelease,draft
 
       - name: Get latest release
         id: helm
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: helm/helm
+          excludes: prerelease,draft
 
       - name: Get latest release
         id: helm-secrets
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: jkroepke/helm-secrets
+          excludes: prerelease,draft
 
       - name: Get latest release
         id: sops
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: getsops/sops
+          excludes: prerelease,draft
 
       - name: Get latest release
         id: just
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: casey/just
+          excludes: prerelease,draft
 
       - name: Get latest release
         id: telepresence
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: telepresenceio/telepresence
+          excludes: prerelease,draft
 
       - name: Get latest release
         id: argocd
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: argoproj/argo-cd
+          excludes: prerelease,draft
 
       - name: Checkout
         uses: actions/checkout@v2
