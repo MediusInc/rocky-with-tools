@@ -145,6 +145,7 @@ RUN dnf upgrade -y \
     git-lfs \
     xmlstarlet \
     podman \
+    fuse-overlayfs \
     rsync \
     skopeo \
   && if [[ $ROCKYLINUX_VERSION == 9.* ]]; then dnf install --enablerepo=crb -y httpie; elif [[ $ROCKYLINUX_VERSION == 10.* ]]; then dnf install -y pip && pip install httpie; else dnf install -y httpie; fi  \
@@ -157,3 +158,6 @@ RUN dnf upgrade -y \
 # disable httpie version check
 RUN mkdir -p ~/.config/httpie \
     && jq -n '{ disable_update_warnings: true }' > ~/.config/httpie/config.json
+
+# podman configuration.. this + dnf install podman + dnf install fuse-overlayfs is required to make podman builds work
+ADD containers.conf /etc/containers/containers.conf
