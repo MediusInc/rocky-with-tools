@@ -13,5 +13,16 @@
       ],
       "matchStringsStrategy": "multi-line"
     }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "regex"
+      ],
+      "matchPaths": [
+        "Dockerfile"
+      ],
+      "groupName": "dockerfile dependencies"
+    }
   ]
 }
