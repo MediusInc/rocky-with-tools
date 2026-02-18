@@ -3,10 +3,11 @@
   "extends": [
     "config:recommended"
   ],
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": [
-        "^Dockerfile$"
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^Dockerfile$/"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) versioning=(?<versioning>\\S+)\\nARG \\w+=\"(?<currentValue>[^\"]+)\""
@@ -17,9 +18,9 @@
   "packageRules": [
     {
       "matchManagers": [
-        "regex"
+        "custom.regex"
       ],
-      "matchPaths": [
+      "matchFileNames": [
         "Dockerfile"
       ],
       "groupName": "dockerfile dependencies"
