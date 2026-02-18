@@ -1,23 +1,23 @@
 ARG ROCKYLINUX_VERSION=""
 
 # renovate: datasource=github-releases depName=openshift/okd versioning=loose
-ARG OC_RELEASE="4.15.0-0.okd-2024-02-10-035534"
+ARG OC_RELEASE="4.21.0-okd-scos.6"
 # renovate: datasource=github-releases depName=helm/helm versioning=semver
-ARG HELM_RELEASE="v3.13.3"
+ARG HELM_RELEASE="v3.20.0"
 # renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver
-ARG HELM_SECRETS_RELEASE="v4.6.2"
+ARG HELM_SECRETS_RELEASE="v4.7.5"
 # renovate: datasource=github-releases depName=getsops/sops versioning=semver
-ARG SOPS_RELEASE="v3.9.3"
+ARG SOPS_RELEASE="v3.11.0"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
-ARG YQ_RELEASE="v4.25.2"
+ARG YQ_RELEASE="v4.52.4"
 # renovate: datasource=github-releases depName=google/go-containerregistry versioning=semver
-ARG CRANE_RELEASE="v0.13.0"
+ARG CRANE_RELEASE="v0.20.7"
 # renovate: datasource=github-releases depName=casey/just versioning=semver
-ARG JUST_RELEASE="1.39.0"
+ARG JUST_RELEASE="1.46.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
-ARG TELEPRESENCE_RELEASE="v2.22.3"
+ARG TELEPRESENCE_RELEASE="v2.26.2"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
-ARG ARGO_CD_RELEASE="v3.1.8"
+ARG ARGO_CD_RELEASE="v3.3.0"
 
 #     _    ____  __  __
 #    / \  |  _ \|  \/  |
