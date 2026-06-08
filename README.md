@@ -13,6 +13,7 @@ docker pull mediussi/rocky-with-tools
 Installed tools:
 - wget
 - git
+- zip
 - unzip
 - xz
 - jq

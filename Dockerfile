@@ -146,6 +146,7 @@ RUN dnf upgrade -y \
     jq \
     git \
     wget \
+    zip \
     unzip \
     xz \
     gettext \
