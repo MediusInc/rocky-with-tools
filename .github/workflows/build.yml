@@ -32,7 +32,7 @@ jobs:
 
       - name: Build and push image
         run: |
-          TAGS="9.6,9.7,10.0,10.1"
+          TAGS="10.2,10.1,9.8,9.7"
           
           # Iterate over tags and build/push
           for tag in $(echo -e "${TAGS//,/\\n}" | uniq); do
