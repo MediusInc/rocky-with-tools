@@ -10,7 +10,7 @@
         "/^Dockerfile$/"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) versioning=(?<versioning>\\S+)\\nARG \\w+=\"(?<currentValue>[^\"]+)\""
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) versioning=(?<versioning>\\S+)(?: extractVersion=(?<extractVersion>\\S+))?\\nARG \\w+=\"(?<currentValue>[^\"]+)\""
       ],
       "matchStringsStrategy": "any"
     }

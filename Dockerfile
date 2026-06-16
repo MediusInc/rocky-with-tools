@@ -4,8 +4,8 @@ ARG ROCKYLINUX_VERSION=""
 ARG OC_RELEASE="4.22.0-okd-scos.3"
 # renovate: datasource=github-releases depName=helm/helm versioning=semver
 ARG HELM_RELEASE="v4.2.1"
-# renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver
-ARG HELM_SECRETS_RELEASE="v4.7.7"
+# renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver extractVersion=^v(?<version>.+)$
+ARG HELM_SECRETS_RELEASE="4.7.7"
 # renovate: datasource=github-releases depName=getsops/sops versioning=semver
 ARG SOPS_RELEASE="v3.13.1"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
@@ -136,10 +136,12 @@ COPY --from=download-sops /tmp/sops /usr/local/bin/
 COPY --from=download-just /tmp/just /usr/local/bin/
 COPY --from=download-telepresence /tmp/telepresence /usr/local/bin/telepresence
 COPY --from=download-argocd /tmp/argocd /usr/local/bin/argocd
+ADD gpg/helm-secrets.gpg /tmp/gpg/.gnupg/helm-secrets.gpg
 
 # Remarks: jsonnet must be in its own install command as epel-release HAS to be installed beforehand
 # `--enablerepo=crb` - CodeReady Builder (CRB) repository is needed for httpie
 ARG ROCKYLINUX_VERSION
+ARG HELM_SECRETS_RELEASE
 RUN dnf upgrade -y \
   && dnf install -y \
     findutils \
@@ -163,8 +165,9 @@ RUN dnf upgrade -y \
   && dnf clean all \
   && dnf autoremove -y \
   && rm -rf /var/cache/dnf \
-  && helm plugin install https://github.com/jkroepke/helm-secrets --version "$HELM_SECRETS_RELEASE"
-
+  && helm plugin install oci://ghcr.io/jkroepke/helm-secrets/secrets:$HELM_SECRETS_RELEASE --keyring /tmp/gpg/.gnupg/helm-secrets.gpg \
+  && helm plugin install oci://ghcr.io/jkroepke/helm-secrets/secrets-getter:$HELM_SECRETS_RELEASE --keyring /tmp/gpg/.gnupg/helm-secrets.gpg \
+  && helm plugin install oci://ghcr.io/jkroepke/helm-secrets/secrets-post-renderer:$HELM_SECRETS_RELEASE --keyring /tmp/gpg/.gnupg/helm-secrets.gpg
 # disable httpie version check
 RUN mkdir -p ~/.config/httpie \
     && jq -n '{ disable_update_warnings: true }' > ~/.config/httpie/config.json
