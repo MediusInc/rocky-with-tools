@@ -124,8 +124,7 @@ RUN chmod +x /tmp/argocd
 
 FROM base-${TARGETARCH}
 ARG TARGETARCH
-LABEL maintainer="jakob.malezic@medius.si"
-# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file?learn=dependency_version_updates&learnProduct=code-security#docker
+LABEL org.opencontainers.image.authors="Rok Koleša <rok.kolesa@medius.si>"
 LABEL org.opencontainers.image.source="https://github.com/MediusInc/rocky-with-tools"
 
 COPY --from=download-oc /tmp/kubectl /tmp/oc /usr/local/bin/
