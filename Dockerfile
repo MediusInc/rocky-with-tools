@@ -1,7 +1,7 @@
 ARG ROCKYLINUX_VERSION=""
 
 # renovate: datasource=github-releases depName=openshift/okd versioning=loose
-ARG OC_RELEASE="4.22.0-okd-scos.3"
+ARG OC_RELEASE="4.22.0-okd-scos.4"
 # renovate: datasource=github-releases depName=helm/helm versioning=semver
 ARG HELM_RELEASE="v4.2.2"
 # renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver extractVersion=^v(?<version>.+)$
@@ -17,7 +17,7 @@ ARG JUST_RELEASE="1.53.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
 ARG TELEPRESENCE_RELEASE="v2.28.0"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
-ARG ARGO_CD_RELEASE="v3.4.3"
+ARG ARGO_CD_RELEASE="v3.4.4"
 
 #     _    ____  __  __
 #    / \  |  _ \|  \/  |
