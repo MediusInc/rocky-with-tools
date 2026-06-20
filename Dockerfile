@@ -15,7 +15,7 @@ ARG CRANE_RELEASE="v0.21.7"
 # renovate: datasource=github-releases depName=casey/just versioning=semver
 ARG JUST_RELEASE="1.53.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
-ARG TELEPRESENCE_RELEASE="v2.28.0"
+ARG TELEPRESENCE_RELEASE="v2.29.0"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
 ARG ARGO_CD_RELEASE="v3.4.4"
 
