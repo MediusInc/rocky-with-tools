@@ -1,23 +1,23 @@
 ARG ROCKYLINUX_VERSION=""
 
 # renovate: datasource=github-releases depName=openshift/okd versioning=loose
-ARG OC_RELEASE="4.22.0-okd-scos.5"
+ARG OC_RELEASE="4.22.0-okd-scos.7"
 # renovate: datasource=github-releases depName=helm/helm versioning=semver
-ARG HELM_RELEASE="v4.2.2"
+ARG HELM_RELEASE="v4.2.3"
 # renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver extractVersion=^v(?<version>.+)$
 ARG HELM_SECRETS_RELEASE="4.7.7"
 # renovate: datasource=github-releases depName=getsops/sops versioning=semver
-ARG SOPS_RELEASE="v3.13.1"
+ARG SOPS_RELEASE="v3.13.2"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
 ARG YQ_RELEASE="v4.53.3"
 # renovate: datasource=github-releases depName=google/go-containerregistry versioning=semver
 ARG CRANE_RELEASE="v0.21.7"
 # renovate: datasource=github-releases depName=casey/just versioning=semver
-ARG JUST_RELEASE="1.54.0"
+ARG JUST_RELEASE="1.56.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
-ARG TELEPRESENCE_RELEASE="v2.29.1"
+ARG TELEPRESENCE_RELEASE="v2.30.0"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
-ARG ARGO_CD_RELEASE="v3.4.4"
+ARG ARGO_CD_RELEASE="v3.4.5"
 
 #     _    ____  __  __
 #    / \  |  _ \|  \/  |
