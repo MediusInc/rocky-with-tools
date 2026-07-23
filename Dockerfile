@@ -7,15 +7,15 @@ ARG HELM_RELEASE="v4.2.3"
 # renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver extractVersion=^v(?<version>.+)$
 ARG HELM_SECRETS_RELEASE="4.7.7"
 # renovate: datasource=github-releases depName=getsops/sops versioning=semver
-ARG SOPS_RELEASE="v3.13.2"
+ARG SOPS_RELEASE="v3.13.3"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
 ARG YQ_RELEASE="v4.53.3"
 # renovate: datasource=github-releases depName=google/go-containerregistry versioning=semver
 ARG CRANE_RELEASE="v0.21.7"
 # renovate: datasource=github-releases depName=casey/just versioning=semver
-ARG JUST_RELEASE="1.56.0"
+ARG JUST_RELEASE="1.57.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
-ARG TELEPRESENCE_RELEASE="v2.30.0"
+ARG TELEPRESENCE_RELEASE="v2.31.0"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
 ARG ARGO_CD_RELEASE="v3.4.5"
 
