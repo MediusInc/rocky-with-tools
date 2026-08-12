@@ -11,13 +11,13 @@ ARG SOPS_RELEASE="v3.13.3"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
 ARG YQ_RELEASE="v4.53.3"
 # renovate: datasource=github-releases depName=google/go-containerregistry versioning=semver
-ARG CRANE_RELEASE="v0.21.8"
+ARG CRANE_RELEASE="v0.21.9"
 # renovate: datasource=github-releases depName=casey/just versioning=semver
-ARG JUST_RELEASE="1.57.0"
+ARG JUST_RELEASE="1.58.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
 ARG TELEPRESENCE_RELEASE="v2.31.2"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
-ARG ARGO_CD_RELEASE="v3.4.6"
+ARG ARGO_CD_RELEASE="v3.5.1"
 
 #     _    ____  __  __
 #    / \  |  _ \|  \/  |
