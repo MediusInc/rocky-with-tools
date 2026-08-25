@@ -1,17 +1,17 @@
 ARG ROCKYLINUX_VERSION=""
 
 # renovate: datasource=github-releases depName=openshift/okd versioning=loose
-ARG OC_RELEASE="4.22.0-okd-scos.7"
+ARG OC_RELEASE="4.22.0-okd-scos.8"
 # renovate: datasource=github-releases depName=helm/helm versioning=semver
-ARG HELM_RELEASE="v4.2.3"
+ARG HELM_RELEASE="v4.2.4"
 # renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver extractVersion=^v(?<version>.+)$
 ARG HELM_SECRETS_RELEASE="4.7.7"
 # renovate: datasource=github-releases depName=getsops/sops versioning=semver
 ARG SOPS_RELEASE="v3.13.3"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
-ARG YQ_RELEASE="v4.53.3"
+ARG YQ_RELEASE="v4.53.6"
 # renovate: datasource=github-releases depName=google/go-containerregistry versioning=semver
-ARG CRANE_RELEASE="v0.21.9"
+ARG CRANE_RELEASE="v0.22.0"
 # renovate: datasource=github-releases depName=casey/just versioning=semver
 ARG JUST_RELEASE="1.58.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
