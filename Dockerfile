@@ -9,13 +9,13 @@ ARG HELM_SECRETS_RELEASE="4.7.8"
 # renovate: datasource=github-releases depName=getsops/sops versioning=semver
 ARG SOPS_RELEASE="v3.13.3"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
-ARG YQ_RELEASE="v4.53.6"
+ARG YQ_RELEASE="v4.54.1"
 # renovate: datasource=github-releases depName=google/go-containerregistry versioning=semver
 ARG CRANE_RELEASE="v0.22.1"
 # renovate: datasource=github-releases depName=casey/just versioning=semver
 ARG JUST_RELEASE="1.58.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
-ARG TELEPRESENCE_RELEASE="v2.32.0"
+ARG TELEPRESENCE_RELEASE="v2.32.1"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
 ARG ARGO_CD_RELEASE="v3.5.3"
 
