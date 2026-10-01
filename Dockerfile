@@ -1,7 +1,7 @@
 ARG ROCKYLINUX_VERSION=""
 
 # renovate: datasource=github-releases depName=openshift/okd versioning=loose
-ARG OC_RELEASE="4.22.0-okd-scos.10"
+ARG OC_RELEASE="5.0.0-okd-scos.1"
 # renovate: datasource=github-releases depName=helm/helm versioning=semver
 ARG HELM_RELEASE="v4.3.0"
 # renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver extractVersion=^v(?<version>.+)$
