@@ -5,7 +5,7 @@ ARG OC_RELEASE="4.22.0-okd-scos.10"
 # renovate: datasource=github-releases depName=helm/helm versioning=semver
 ARG HELM_RELEASE="v4.3.0"
 # renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver extractVersion=^v(?<version>.+)$
-ARG HELM_SECRETS_RELEASE="4.7.8"
+ARG HELM_SECRETS_RELEASE="4.7.9"
 # renovate: datasource=github-releases depName=getsops/sops versioning=semver
 ARG SOPS_RELEASE="v3.13.3"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
@@ -15,9 +15,9 @@ ARG CRANE_RELEASE="v0.22.1"
 # renovate: datasource=github-releases depName=casey/just versioning=semver
 ARG JUST_RELEASE="1.58.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
-ARG TELEPRESENCE_RELEASE="v2.32.1"
+ARG TELEPRESENCE_RELEASE="v2.32.2"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
-ARG ARGO_CD_RELEASE="v3.5.3"
+ARG ARGO_CD_RELEASE="v3.5.4"
 
 #     _    ____  __  __
 #    / \  |  _ \|  \/  |
