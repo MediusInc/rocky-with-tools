@@ -40,7 +40,7 @@ ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/open
 ENV YQ_URL=https://github.com/mikefarah/yq/releases/download/${YQ_RELEASE}/yq_linux_arm64.tar.gz
 ENV CRANE_URL=https://github.com/google/go-containerregistry/releases/download/${CRANE_RELEASE}/go-containerregistry_Linux_arm64.tar.gz
 ENV SOPS_URL=https://github.com/getsops/sops/releases/download/${SOPS_RELEASE}/sops-${SOPS_RELEASE}.linux.arm64
-ENV JUST_URL=https://github.com/casey/just/releases/download/${JUST_RELEASE}/just-${JUST_RELEASE}-aarch64-apple-darwin.tar.gz
+ENV JUST_URL=https://github.com/casey/just/releases/download/${JUST_RELEASE}/just-${JUST_RELEASE}-aarch64-unknown-linux-musl.tar.gz
 ENV TELEPRESENCE_URL=https://github.com/telepresenceio/telepresence/releases/download/${TELEPRESENCE_RELEASE}/telepresence-linux-arm64
 ENV ARGO_CD_URL=https://github.com/argoproj/argo-cd/releases/download/${ARGO_CD_RELEASE}/argocd-linux-arm64
 
