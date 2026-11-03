@@ -18,6 +18,8 @@ ARG JUST_RELEASE="1.59.0"
 ARG TELEPRESENCE_RELEASE="v2.32.3"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
 ARG ARGO_CD_RELEASE="v3.5.7"
+# renovate: datasource=gitlab-releases depName=gitlab-org/cli versioning=semver extractVersion=^v(?<version>.+)$
+ARG GLAB_RELEASE="1.128.0"
 
 #     _    ____  __  __
 #    / \  |  _ \|  \/  |
@@ -34,6 +36,7 @@ ARG CRANE_RELEASE
 ARG JUST_RELEASE
 ARG TELEPRESENCE_RELEASE
 ARG ARGO_CD_RELEASE
+ARG GLAB_RELEASE
 
 ENV HELM_URL=https://get.helm.sh/helm-${HELM_RELEASE}-linux-arm64.tar.gz
 ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/openshift-client-linux-arm64-${OC_RELEASE}.tar.gz
@@ -43,6 +46,7 @@ ENV SOPS_URL=https://github.com/getsops/sops/releases/download/${SOPS_RELEASE}/s
 ENV JUST_URL=https://github.com/casey/just/releases/download/${JUST_RELEASE}/just-${JUST_RELEASE}-aarch64-unknown-linux-musl.tar.gz
 ENV TELEPRESENCE_URL=https://github.com/telepresenceio/telepresence/releases/download/${TELEPRESENCE_RELEASE}/telepresence-linux-arm64
 ENV ARGO_CD_URL=https://github.com/argoproj/argo-cd/releases/download/${ARGO_CD_RELEASE}/argocd-linux-arm64
+ENV GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v${GLAB_RELEASE}/downloads/glab_${GLAB_RELEASE}_linux_arm64.tar.gz
 
 #     _    __  __ ____
 #    / \  |  \/  |  _ \
@@ -59,6 +63,7 @@ ARG CRANE_RELEASE
 ARG JUST_RELEASE
 ARG TELEPRESENCE_RELEASE
 ARG ARGO_CD_RELEASE
+ARG GLAB_RELEASE
 
 ENV HELM_URL=https://get.helm.sh/helm-${HELM_RELEASE}-linux-amd64.tar.gz
 ENV OC_URL=https://github.com/openshift/okd/releases/download/${OC_RELEASE}/openshift-client-linux-${OC_RELEASE}.tar.gz
@@ -68,6 +73,7 @@ ENV SOPS_URL=https://github.com/getsops/sops/releases/download/${SOPS_RELEASE}/s
 ENV JUST_URL=https://github.com/casey/just/releases/download/${JUST_RELEASE}/just-${JUST_RELEASE}-x86_64-unknown-linux-musl.tar.gz
 ENV TELEPRESENCE_URL=https://github.com/telepresenceio/telepresence/releases/download/${TELEPRESENCE_RELEASE}/telepresence-linux-amd64
 ENV ARGO_CD_URL=https://github.com/argoproj/argo-cd/releases/download/${ARGO_CD_RELEASE}/argocd-linux-amd64
+ENV GLAB_URL=https://gitlab.com/gitlab-org/cli/-/releases/v${GLAB_RELEASE}/downloads/glab_${GLAB_RELEASE}_linux_amd64.tar.gz
 
 #  ____   _____        ___   _ _     ___    _    ____
 # |  _ \ / _ \ \      / / \ | | |   / _ \  / \  |  _ \
@@ -116,6 +122,11 @@ FROM base-${TARGETARCH} AS download-argocd
 ADD ${ARGO_CD_URL} /tmp/argocd
 RUN chmod +x /tmp/argocd
 
+FROM base-${TARGETARCH} AS download-glab
+# glab
+ADD ${GLAB_URL} /tmp/glab.tar.gz
+RUN tar xzf /tmp/glab.tar.gz -C /tmp
+
 #  _____ ___ _   _    _    _
 # |  ___|_ _| \ | |  / \  | |
 # | |_   | ||  \| | / _ \ | |
@@ -135,6 +146,7 @@ COPY --from=download-sops /tmp/sops /usr/local/bin/
 COPY --from=download-just /tmp/just /usr/local/bin/
 COPY --from=download-telepresence /tmp/telepresence /usr/local/bin/telepresence
 COPY --from=download-argocd /tmp/argocd /usr/local/bin/argocd
+COPY --from=download-glab /tmp/bin/glab /usr/local/bin/glab
 ADD gpg/helm-secrets.gpg /tmp/gpg/.gnupg/helm-secrets.gpg
 
 # Remarks: jsonnet must be in its own install command as epel-release HAS to be installed beforehand
