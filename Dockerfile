@@ -3,9 +3,9 @@ ARG ROCKYLINUX_VERSION=""
 # renovate: datasource=github-releases depName=openshift/okd versioning=loose
 ARG OC_RELEASE="4.22.0-okd-scos.10"
 # renovate: datasource=github-releases depName=helm/helm versioning=semver
-ARG HELM_RELEASE="v4.3.1"
+ARG HELM_RELEASE="v4.3.2"
 # renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver extractVersion=^v(?<version>.+)$
-ARG HELM_SECRETS_RELEASE="4.7.10"
+ARG HELM_SECRETS_RELEASE="4.7.11"
 # renovate: datasource=github-releases depName=getsops/sops versioning=semver
 ARG SOPS_RELEASE="v3.13.3"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
