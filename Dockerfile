@@ -184,4 +184,5 @@ RUN mkdir -p ~/.config/httpie \
     && jq -n '{ disable_update_warnings: true }' > ~/.config/httpie/config.json
 
 # podman configuration.. this + dnf install podman + dnf install fuse-overlayfs is required to make podman builds work
-ADD containers.conf /etc/containers/containers.conf
+ADD podman-config/containers.conf /etc/containers/containers.conf
+ADD podman-config/storage.conf /etc/containers/storage.conf
