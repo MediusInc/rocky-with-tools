@@ -3,9 +3,9 @@ ARG ROCKYLINUX_VERSION=""
 # renovate: datasource=github-releases depName=openshift/okd versioning=loose
 ARG OC_RELEASE="4.22.0-okd-scos.10"
 # renovate: datasource=github-releases depName=helm/helm versioning=semver
-ARG HELM_RELEASE="v4.3.1"
+ARG HELM_RELEASE="v4.3.2"
 # renovate: datasource=github-releases depName=jkroepke/helm-secrets versioning=semver extractVersion=^v(?<version>.+)$
-ARG HELM_SECRETS_RELEASE="4.7.10"
+ARG HELM_SECRETS_RELEASE="4.7.11"
 # renovate: datasource=github-releases depName=getsops/sops versioning=semver
 ARG SOPS_RELEASE="v3.13.3"
 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
@@ -15,11 +15,11 @@ ARG CRANE_RELEASE="v0.22.1"
 # renovate: datasource=github-releases depName=casey/just versioning=semver
 ARG JUST_RELEASE="1.59.0"
 # renovate: datasource=github-releases depName=telepresenceio/telepresence versioning=semver
-ARG TELEPRESENCE_RELEASE="v2.33.0"
+ARG TELEPRESENCE_RELEASE="v2.33.3"
 # renovate: datasource=github-releases depName=argoproj/argo-cd versioning=semver
-ARG ARGO_CD_RELEASE="v3.6.1"
+ARG ARGO_CD_RELEASE="v3.6.2"
 # renovate: datasource=gitlab-releases depName=gitlab-org/cli versioning=semver extractVersion=^v(?<version>.+)$
-ARG GLAB_RELEASE="1.130.0"
+ARG GLAB_RELEASE="1.131.0"
 
 #     _    ____  __  __
 #    / \  |  _ \|  \/  |
